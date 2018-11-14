@@ -16,7 +16,7 @@ from statsmodels.graphics.tsaplots import plot_acf, plot_pacf
 
 def split_and_plot(timeseries, split_type= "additive", add_observed= True):
 
-    ''' Decomposition of timeseries into trend, seasonality,
+    ''' Decomposition of time series into trend, seasonality,
         and residuals. Plots each component, including
         time series observations. '''
 
@@ -44,6 +44,9 @@ def split_and_plot(timeseries, split_type= "additive", add_observed= True):
 
 def test_df(timeseries):
 
+    ''' Performs Dickey-Fuller test to check
+        stationarity of time series '''
+
     dftest = adfuller(timeseries, autolag= "AIC")
 
     dfout = pd.Series(dftest[0:4], index= ["Test Statistic",
@@ -56,8 +59,8 @@ def test_df(timeseries):
 
 def plot_autocorr(timeseries, nlags):
 
-    ''' Time series autocorrelation and partial
-        autocorrelation function, and plotting. '''
+    ''' Calculates and displays time series autocorrelation
+        and partial autocorrelation function '''
 
     timeseries.dropna(inplace= True)
 
@@ -74,6 +77,10 @@ def plot_autocorr(timeseries, nlags):
 def plot_model(start, end, timeseries, predicted_values,
                predicted_ci= None, actual_values= None,
                title= ""):
+
+    ''' Plots past values of time series along with
+        out-of-sample forecasts for specified time
+        interval '''
 
     fig, axes = plt.subplots(1, 1, figsize= (12, 4))
     # plot timeseries
