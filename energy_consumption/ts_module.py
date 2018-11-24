@@ -74,7 +74,7 @@ def plot_autocorr(timeseries, nlags):
     fig = plot_pacf(timeseries, lags= nlags, ax= axes[1])
 
 
-def plot_model(start, end, timeseries, predicted_values,
+def plot_model(timeseries, predicted_values, start= None, end= None,
                predicted_ci= None, actual_values= None,
                title= ""):
 
@@ -82,17 +82,18 @@ def plot_model(start, end, timeseries, predicted_values,
         out-of-sample forecasts for specified time
         interval '''
 
-    fig, axes = plt.subplots(1, 1, figsize= (12, 4))
+    fig, g = plt.subplots(1, 1, figsize= (12, 4))
     # plot timeseries
-    ax = sns.lineplot(data= timeseries)
+    g = sns.lineplot(data= timeseries)
+    
     # plot actual values
     if actual_values is not None:
-        ax = sns.lineplot(data= actual_values[start:end],
+        g = sns.lineplot(data= actual_values[start:end],
                           color= "blue", linewidth= 0.75)
-        ax.lines[1].set_linestyle("-.")
+        g.lines[1].set_linestyle("-.")
 
     # plot forecasts
-    ax= sns.lineplot(data= predicted_values,
+    g = sns.lineplot(data= predicted_values,
                      color= "red", linewidth= 1.0)
 
     # plot confidence intervals
@@ -101,7 +102,12 @@ def plot_model(start, end, timeseries, predicted_values,
                                           other= 0)
         y2= predicted_ci.iloc[:, 1]
         x= predicted_values.index
-        ax.fill_between(x= x, y1= y1, y2= y2,
+        g.fill_between(x= x, y1= y1, y2= y2,
                         alpha=.15, color= "red")
+        
+    # rotate ticks labels
+    for item in g.get_xticklabels():
+        item.set_rotation(30)
+    
     # add title
-    ax= plt.title(title)
+    g= plt.title(title)
