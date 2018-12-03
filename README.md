@@ -7,7 +7,6 @@ This repo contains a collection of projects that include: <br/>
 2. Gradient-boosted trees. 
 3. Support Vector Machines. 
 4. K Nearest Neighbors.   
-
 Two encoding methods have been tested due to the large number of categorical predictors: simple dummy encoding and one-hot encoding. 
 
 * __Time series analysis on energy consumption data__: submetering systems help tune the energy consumption of households to minimize wasteful usage and bill size. In this task, energy consumption data collected by a submetering system is analyzed and displayed using various `matplotlib` and `seaborn` functions. Modeling of the time series is carried out through the methods available in the `statsmodels` package for statistical analysis in Python.   
